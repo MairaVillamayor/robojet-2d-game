@@ -1,0 +1,46 @@
+[gd_scene load_steps=4 format=3 uid="uid://d2rvs8wusot4i"]
+
+[ext_resource type="Script" uid="uid://chtnqfedrr0nv" path="res://scripts/gameover.gd" id="1_ncp31"]
+[ext_resource type="FontFile" uid="uid://dgcywp863ment" path="res://assets/fonts/ARCADECLASSIC.TTF" id="2_dy3ie"]
+[ext_resource type="AudioStream" uid="uid://d0nmr34q5k5qi" path="res://assets/sounds/gameover.mp3" id="3_2mkfd"]
+
+[node name="Gameover" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_ncp31")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 236.0
+offset_bottom = 165.0
+color = Color(1.92523e-07, 0.120689265, 0.17647624, 1)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 33.0
+offset_top = 53.0
+offset_right = 143.66667
+offset_bottom = 101.66667
+scale = Vector2(1.5, 1.5)
+theme_override_colors/font_color = Color(0.9019608, 0.14117648, 0.14117648, 1)
+theme_override_fonts/font = ExtResource("2_dy3ie")
+theme_override_font_sizes/font_size = 19
+text = "GAME OVER"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 92.00001
+offset_top = 98.00001
+offset_right = 155.0
+offset_bottom = 129.0
+scale = Vector2(0.7, 0.7)
+theme_override_fonts/font = ExtResource("2_dy3ie")
+theme_override_font_sizes/font_size = 20
+text = "SALIR"
+
+[node name="gameover" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_2mkfd")
+autoplay = true
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

@@ -1,0 +1,160 @@
+[gd_scene load_steps=25 format=3 uid="uid://copusg3l3vs77"]
+
+[ext_resource type="Texture2D" uid="uid://dn2nbbf1ur40w" path="res://assets/sprites/player1.png" id="1_4dohe"]
+[ext_resource type="Script" uid="uid://dnmsy2c4bykiy" path="res://scripts/player.gd" id="1_r66lb"]
+[ext_resource type="Texture2D" uid="uid://bh16ff26s2mwj" path="res://assets/sprites/player2.png" id="2_r66lb"]
+[ext_resource type="Texture2D" uid="uid://bxdmgf6blp6g7" path="res://assets/sprites/sprite_04.png" id="2_x0bak"]
+[ext_resource type="Texture2D" uid="uid://d2bm5sqerf32l" path="res://assets/sprites/sprite_06.png" id="3_lulei"]
+[ext_resource type="Texture2D" uid="uid://bwskwg4vs3f5c" path="res://assets/sprites/sprite_05.png" id="4_edtk3"]
+[ext_resource type="Texture2D" uid="uid://dnneqdhoq48us" path="res://assets/sprites/sprite_02.png" id="5_q2wkl"]
+[ext_resource type="Texture2D" uid="uid://csja15g4vev5d" path="res://assets/sprites/sprite_03.png" id="6_f2e50"]
+[ext_resource type="Texture2D" uid="uid://b5f1oie01uvwk" path="res://assets/sprites/sprite_01.png" id="7_22xyk"]
+[ext_resource type="Texture2D" uid="uid://basanaamr7vc5" path="res://assets/sprites/sprite_11.png" id="8_r3tw4"]
+[ext_resource type="Texture2D" uid="uid://mtjveujfonhi" path="res://assets/sprites/sprite_10.png" id="9_nmymu"]
+[ext_resource type="Texture2D" uid="uid://b4jbpjhw64m1d" path="res://assets/sprites/sprite_09.png" id="10_gf0v6"]
+[ext_resource type="Texture2D" uid="uid://boi51ebgnltc" path="res://assets/sprites/sprite_07.png" id="11_cv2ms"]
+[ext_resource type="Texture2D" uid="uid://c17xg8fdjmqpj" path="res://assets/sprites/sprite_08.png" id="12_g56qp"]
+[ext_resource type="Texture2D" uid="uid://dp8avgv2hih1p" path="res://assets/sprites/sprite_00.png" id="13_axxvs"]
+[ext_resource type="AudioStream" uid="uid://2o0memcu08fy" path="res://assets/sounds/explosion.mp3" id="16_edtk3"]
+[ext_resource type="AudioStream" uid="uid://b02vbpmjyaeq0" path="res://assets/sounds/burn.mp3" id="17_q2wkl"]
+[ext_resource type="Script" uid="uid://chguysjo3ajpg" path="res://scripts/counter.gd" id="18_q2wkl"]
+[ext_resource type="FontFile" uid="uid://dgcywp863ment" path="res://assets/fonts/ARCADECLASSIC.TTF" id="19_f2e50"]
+[ext_resource type="Script" uid="uid://56sgohqpvtrj" path="res://prefabs/counterlives.gd" id="20_22xyk"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_72ieh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_x0bak")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_lulei")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_edtk3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_q2wkl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_f2e50")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_22xyk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_r3tw4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_nmymu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_gf0v6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_cv2ms")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_g56qp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_axxvs")
+}],
+"loop": false,
+"name": &"explosion",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_4dohe")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_r66lb")
+}],
+"loop": true,
+"name": &"up",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r66lb"]
+size = Vector2(29, 51.25)
+
+[sub_resource type="LabelSettings" id="LabelSettings_22xyk"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_f2e50"]
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_r66lb")
+
+[node name="sprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 3)
+sprite_frames = SubResource("SpriteFrames_72ieh")
+animation = &"explosion"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_r66lb")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(3, -3)
+limit_left = -250
+limit_right = 450
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+
+[node name="sounds" type="Node2D" parent="."]
+
+[node name="explosionSound" type="AudioStreamPlayer2D" parent="sounds"]
+stream = ExtResource("16_edtk3")
+
+[node name="burnSound" type="AudioStreamPlayer2D" parent="sounds"]
+stream = ExtResource("17_q2wkl")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="counter" type="ColorRect" parent="UI"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -36.0
+offset_right = 4.0
+offset_bottom = 20.0
+grow_horizontal = 0
+color = Color(0.220243, 0.27769983, 0.9884266, 0.8784314)
+script = ExtResource("18_q2wkl")
+
+[node name="gold" type="Label" parent="UI/counter"]
+layout_mode = 1
+offset_top = 2.0
+offset_right = 40.0
+offset_bottom = 19.0
+theme_override_fonts/font = ExtResource("19_f2e50")
+text = "0"
+label_settings = SubResource("LabelSettings_22xyk")
+horizontal_alignment = 1
+
+[node name="counterlives" type="ColorRect" parent="UI"]
+offset_left = 143.0
+offset_right = 183.0
+offset_bottom = 20.0
+color = Color(0.682281, 0.0010240298, 0.78868127, 1)
+script = ExtResource("20_22xyk")
+
+[node name="lives" type="Label" parent="UI/counterlives"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 36.0
+offset_bottom = 19.0
+theme_override_fonts/font = ExtResource("19_f2e50")
+theme_override_font_sizes/font_size = 16
+text = "3"
+label_settings = SubResource("LabelSettings_f2e50")
+horizontal_alignment = 1
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

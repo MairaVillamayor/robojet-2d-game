@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3 uid="uid://dlwuse71asoqc"]
+
+[ext_resource type="Script" uid="uid://0wuody37bh2w" path="res://scripts/gate.gd" id="1_wp7t3"]
+[ext_resource type="Texture2D" uid="uid://dswvwjlbusx5x" path="res://assets/sprites/gate3.png" id="2_tqyx4"]
+[ext_resource type="Texture2D" uid="uid://du203u66267k1" path="res://assets/sprites/gate2.png" id="3_0kab6"]
+[ext_resource type="Texture2D" uid="uid://56otil1jnuh3" path="res://assets/sprites/gate1.png" id="4_ie4qf"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_iltfi"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_tqyx4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_0kab6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ie4qf")
+}],
+"loop": false,
+"name": &"open",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_afkpg"]
+size = Vector2(29, 48)
+
+[node name="Gate" type="Node2D"]
+script = ExtResource("1_wp7t3")
+
+[node name="portal" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_iltfi")
+animation = &"open"
+
+[node name="Area2D" type="Area2D" parent="portal"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="portal/Area2D"]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_afkpg")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+
+[connection signal="body_entered" from="portal/Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
